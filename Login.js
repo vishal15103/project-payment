@@ -140,15 +140,9 @@ function Login() {
 
             />
 
-            {showPassword ? (
+            <FaLock />
 
-              <FaEyeSlash onClick={() => setShowPassword(false)} />
-
-            ) : (
-
-              <FaEye onClick={() => setShowPassword(true)} />
-
-            )}
+            {showPassword ? <FaEyeSlash onClick={() => setShowPassword(false)} /> : <FaEye onClick={() => setShowPassword(true)} />}
 
           </div>
 

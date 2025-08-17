@@ -1,20 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
 import logo from "../assets/logo.png";
 
-import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import bg1 from "../assets/bg1.jpg";
+
+import bg2 from "../assets/bg2.jpg";
+
+import bg3 from "../assets/bg3.jpg";
+
+import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 
-function ForgotPassword() {
+const backgrounds = [bg1, bg2, bg3];
+
+
+
+function Login() {
+
+  const [bgIndex, setBgIndex] = useState(0);
 
   const [userId, setUserId] = useState("");
 
-  const [newPassword, setNewPassword] = useState("");
+  const [username, setUsername] = useState("");
 
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [remember, setRemember] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -24,19 +38,31 @@ function ForgotPassword() {
 
 
 
-  const handleCreate = (e) => {
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      setBgIndex((prev) => (prev + 1) % backgrounds.length);
+
+    }, 4000);
+
+    return () => clearInterval(interval);
+
+  }, []);
+
+
+
+  const handleLogin = (e) => {
 
     e.preventDefault();
 
-    if (newPassword !== confirmPassword) {
+    if (userId && username && password) {
 
-      alert("Passwords do not match!");
+      alert("Login successful!");
 
     } else {
 
-      alert("Password updated successfully!");
-
-      navigate("/");
+      alert("Please fill all fields");
 
     }
 
@@ -46,15 +72,23 @@ function ForgotPassword() {
 
   return (
 
-    <div className="login-container fade">
+    <div
+
+      className="login-container fade"
+
+      style={{ backgroundImage: `url(${backgrounds[bgIndex]})` }}
+
+    >
 
       <div className="login-box">
 
         <img src={logo} alt="SCB Logo" className="logo" />
 
-        <h2>Reset Password</h2>
+        <h2>Login</h2>
 
-        <form onSubmit={handleCreate}>
+        <p className="description">Secure payment services for your banking needs</p>
+
+        <form onSubmit={handleLogin}>
 
           <div className="input-group">
 
@@ -70,6 +104,26 @@ function ForgotPassword() {
 
             />
 
+            <FaUser />
+
+          </div>
+
+          <div className="input-group">
+
+            <input
+
+              type="text"
+
+              placeholder="Username or Email"
+
+              value={username}
+
+              onChange={(e) => setUsername(e.target.value)}
+
+            />
+
+            <FaEnvelope />
+
           </div>
 
           <div className="input-group">
@@ -78,37 +132,53 @@ function ForgotPassword() {
 
               type={showPassword ? "text" : "password"}
 
-              placeholder="New Password"
+              placeholder="Password"
 
-              value={newPassword}
+              value={password}
 
-              onChange={(e) => setNewPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
 
             />
+
+            <FaLock />
 
             {showPassword ? <FaEyeSlash onClick={() => setShowPassword(false)} /> : <FaEye onClick={() => setShowPassword(true)} />}
 
           </div>
 
-          <div className="input-group">
+          <div className="options">
 
-            <input
+            <label>
 
-              type={showPassword ? "text" : "password"}
+              <input
 
-              placeholder="Confirm Password"
+                type="checkbox"
 
-              value={confirmPassword}
+                checked={remember}
 
-              onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) => setRemember(e.target.checked)}
 
-            />
+              />
+
+              Remember me
+
+            </label>
+
+            <span onClick={() => navigate("/forgot-password")}>Forgot password?</span>
 
           </div>
 
-          <button type="submit">Create New Password</button>
+          <button type="submit">Login</button>
 
         </form>
+
+        <p>
+
+          Don’t have an account?{" "}
+
+          <span onClick={() => navigate("/signup")}>Sign Up</span>
+
+        </p>
 
       </div>
 
@@ -120,4 +190,4 @@ function ForgotPassword() {
 
 
 
-export default ForgotPassword;
+export default Login;

@@ -116,6 +116,8 @@ function SignUp() {
 
             />
 
+            <FaLock />
+
             {showPassword ? <FaEyeSlash onClick={() => setShowPassword(false)} /> : <FaEye onClick={() => setShowPassword(true)} />}
 
           </div>
@@ -133,6 +135,8 @@ function SignUp() {
               onChange={(e) => setConfirmPassword(e.target.value)}
 
             />
+
+            <FaLock />
 
           </div>
 

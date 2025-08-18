@@ -30,33 +30,81 @@ function SignUpPage() {
 
     <div
 
-      className="bg-slideshow"
+      className="h-screen w-full flex items-center justify-center bg-cover bg-center transition-all duration-1000"
 
       style={{ backgroundImage: `url(${images[currentImage]})` }}
 
     >
 
-      <div className="container">
+      <div className="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-lg w-96">
 
-        <img src="/logo.png" alt="SCB Logo" width="70" />
+        <div className="flex flex-col items-center">
 
-        <h2>Standard Chartered Bank - Sign Up</h2>
+          <img src="/logo.png" alt="SCB Logo" className="w-16 mb-3" />
 
+          <h2 className="text-xl font-bold text-gray-800">Create Account</h2>
 
-
-        <input type="text" placeholder="User ID" />
-
-        <input type="text" placeholder="Username" />
-
-        <input type="email" placeholder="Email" />
-
-        <input type="password" placeholder="Create Password" />
-
-        <input type="password" placeholder="Confirm Password" />
+        </div>
 
 
 
-        <button>Sign Up</button>
+        <input
+
+          type="text"
+
+          placeholder="User ID"
+
+          className="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+
+        />
+
+        <input
+
+          type="text"
+
+          placeholder="Username"
+
+          className="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+
+        />
+
+        <input
+
+          type="email"
+
+          placeholder="Email"
+
+          className="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+
+        />
+
+        <input
+
+          type="password"
+
+          placeholder="Create Password"
+
+          className="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+
+        />
+
+        <input
+
+          type="password"
+
+          placeholder="Confirm Password"
+
+          className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+
+        />
+
+
+
+        <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg shadow-md">
+
+          Sign Up
+
+        </button>
 
       </div>
 

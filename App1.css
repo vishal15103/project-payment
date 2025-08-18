@@ -1,0 +1,39 @@
+body, html {
+
+  margin: 0;
+
+  padding: 0;
+
+  height: 100%;
+
+  font-family: Arial, sans-serif;
+
+}
+
+
+
+.bg-slideshow {
+
+  background-size: cover;
+
+  background-position: center;
+
+  height: 100vh;
+
+  color: white;
+
+}
+
+
+
+.container {
+
+  position: relative;
+
+  z-index: 2;
+
+  text-align: center;
+
+  padding: 20px;
+
+}

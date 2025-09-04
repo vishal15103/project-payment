@@ -1,4 +1,4 @@
-/* General page */
+/* ========== General Page ========== */
 
 .login-container {
 
@@ -14,11 +14,13 @@
 
   font-family: "Segoe UI", sans-serif;
 
+  transition: background-image 1s ease-in-out;
+
 }
 
 
 
-/* Header */
+/* ========== Header ========== */
 
 .header {
 
@@ -38,7 +40,7 @@
 
 .header .logo {
 
-  font-size: 20px;
+  font-size: 22px;
 
   font-weight: bold;
 
@@ -58,6 +60,8 @@
 
   font-weight: 500;
 
+  transition: color 0.3s ease;
+
 }
 
 
@@ -70,7 +74,7 @@
 
 
 
-/* Main content */
+/* ========== Main Content ========== */
 
 .main-content {
 
@@ -88,7 +92,7 @@
 
 
 
-/* Welcome Section */
+/* ========== Welcome Section ========== */
 
 .welcome-section {
 
@@ -96,13 +100,15 @@
 
   color: white;
 
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+
 }
 
 
 
 .welcome-section h1 {
 
-  font-size: 32px;
+  font-size: 34px;
 
   font-weight: bold;
 
@@ -118,9 +124,13 @@
 
   margin-bottom: 25px;
 
+  line-height: 1.6;
+
 }
 
 
+
+/* Motto cards */
 
 .mottos {
 
@@ -138,7 +148,7 @@
 
   background: rgba(255, 255, 255, 0.15);
 
-  padding: 12px 18px;
+  padding: 14px 18px;
 
   border-radius: 12px;
 
@@ -146,11 +156,27 @@
 
   font-weight: 500;
 
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
 }
 
 
 
-/* Login Box */
+.motto-card img {
+
+  width: 22px;
+
+  height: 22px;
+
+}
+
+
+
+/* ========== Login/Signup/Forgot Box ========== */
 
 .login-box {
 
@@ -160,9 +186,9 @@
 
   border-radius: 15px;
 
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
 
-  width: 300px;
+  width: 320px;
 
 }
 
@@ -180,6 +206,8 @@
 
 
 
+/* Radio options */
+
 .radio-options {
 
   display: flex;
@@ -192,9 +220,13 @@
 
   font-size: 14px;
 
+  color: #333;
+
 }
 
 
+
+/* Inputs */
 
 input[type="text"],
 
@@ -212,9 +244,23 @@ input[type="email"] {
 
   border: 1px solid #ccc;
 
+  outline: none;
+
+  transition: border 0.3s ease;
+
 }
 
 
+
+input:focus {
+
+  border: 1px solid #006fba;
+
+}
+
+
+
+/* Password container */
 
 .password-container {
 
@@ -248,7 +294,7 @@ input[type="email"] {
 
 
 
-/* Login button */
+/* Buttons */
 
 .login-btn {
 
@@ -282,7 +328,7 @@ input[type="email"] {
 
 
 
-/* Extra Links (Sign Up & Forgot Password) */
+/* Extra Links */
 
 .extra-links {
 
@@ -303,6 +349,8 @@ input[type="email"] {
   cursor: pointer;
 
   text-decoration: underline;
+
+  transition: color 0.3s ease;
 
 }
 

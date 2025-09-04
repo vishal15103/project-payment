@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import "./LoginPage.css";
 
+import "../App.css"; // import global styles
+
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
@@ -13,6 +15,8 @@ function LoginPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [backgroundIndex, setBackgroundIndex] = useState(0);
+
+  const [modalContent, setModalContent] = useState(null);
 
   const navigate = useNavigate();
 
@@ -56,6 +60,62 @@ function LoginPage() {
 
 
 
+  const openModal = (type) => {
+
+    let title = "";
+
+    let desc = "";
+
+
+
+    switch (type) {
+
+      case "help":
+
+        title = "Help";
+
+        desc = "Get quick assistance for login issues, navigation help, and common FAQs.";
+
+        break;
+
+      case "contact":
+
+        title = "Contact Us";
+
+        desc = "You can reach Standard Chartered via email at support@sc.com or call 1800-123-456.";
+
+        break;
+
+      case "support":
+
+        title = "Support";
+
+        desc = "Our support team is available 24/7 to resolve your banking queries and provide assistance.";
+
+        break;
+
+      case "about":
+
+        title = "About Us";
+
+        desc = "Standard Chartered is a leading international bank, committed to driving commerce and prosperity through our unique diversity.";
+
+        break;
+
+      default:
+
+        break;
+
+    }
+
+
+
+    setModalContent({ title, desc });
+
+  };
+
+
+
   return (
 
     <div
@@ -74,13 +134,13 @@ function LoginPage() {
 
         <nav>
 
-          <a href="#">Help</a>
+          <a onClick={() => openModal("help")}>Help</a>
 
-          <a href="#">Contact Us</a>
+          <a onClick={() => openModal("contact")}>Contact Us</a>
 
-          <a href="#">Support</a>
+          <a onClick={() => openModal("support")}>Support</a>
 
-          <a href="#">About</a>
+          <a onClick={() => openModal("about")}>About Us</a>
 
         </nav>
 
@@ -110,11 +170,29 @@ function LoginPage() {
 
           <div className="mottos">
 
-            <div className="motto-card">✅ Do the right thing</div>
+            <div className="motto-card">
 
-            <div className="motto-card">🚀 Never settle</div>
+              <img src="/icons/secure.png" alt="Secure" /> Secure Transactions
 
-            <div className="motto-card">🤝 Better together</div>
+            </div>
+
+            <div className="motto-card">
+
+              <img src="/icons/global.png" alt="Global" /> Global Access
+
+            </div>
+
+            <div className="motto-card">
+
+              <img src="/icons/fast.png" alt="Fast" /> Fast & Reliable
+
+            </div>
+
+            <div className="motto-card">
+
+              <img src="/icons/trust.png" alt="Trust" /> Trusted Banking Partner
+
+            </div>
 
           </div>
 
@@ -202,13 +280,21 @@ function LoginPage() {
 
             <p>
 
-              <a onClick={() => navigate("/signup")} className="link-btn">Sign Up (User Only)</a>
+              <a onClick={() => navigate("/signup")} className="link-btn">
+
+                Sign Up (User Only)
+
+              </a>
 
             </p>
 
             <p>
 
-              <a onClick={() => navigate("/forgot-password")} className="link-btn">Forgot Password?</a>
+              <a onClick={() => navigate("/forgot-password")} className="link-btn">
+
+                Forgot Password?
+
+              </a>
 
             </p>
 
@@ -217,6 +303,28 @@ function LoginPage() {
         </div>
 
       </div>
+
+
+
+      {/* Modal */}
+
+      {modalContent && (
+
+        <div className="modal-overlay">
+
+          <div className="modal">
+
+            <h2>{modalContent.title}</h2>
+
+            <p>{modalContent.desc}</p>
+
+            <button onClick={() => setModalContent(null)}>Close</button>
+
+          </div>
+
+        </div>
+
+      )}
 
     </div>
 

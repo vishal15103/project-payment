@@ -2,15 +2,11 @@ import React from "react";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import WelcomePage from "./components/WelcomePage";
-
 import LoginPage from "./components/LoginPage";
 
 import SignUpPage from "./components/SignUpPage";
 
 import ForgotPasswordPage from "./components/ForgotPasswordPage";
-
-import "./App.css";
 
 
 
@@ -22,13 +18,29 @@ function App() {
 
       <Routes>
 
-        <Route path="/" element={<WelcomePage />} />
-
-        <Route path="/login/:role" element={<LoginPage />} />
+        <Route path="/" element={<LoginPage />} />
 
         <Route path="/signup" element={<SignUpPage />} />
 
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
+        <Route
+
+          path="/home"
+
+          element={
+
+            <div style={{ textAlign: "center", marginTop: "50px" }}>
+
+              <h1>Welcome Home!</h1>
+
+              <p>You have successfully logged in to Standard Chartered.</p>
+
+            </div>
+
+          }
+
+        />
 
       </Routes>
 

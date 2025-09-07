@@ -1,0 +1,9 @@
+INSERT INTO users (user_id, username, password, role, account_locked, failed_attempts)
+
+VALUES ('approver1', 'Approver One', '$2a$10$1zKHgx8xL0zHfWn0PvYkC.6FqykVz8uPPdxfxJ8V0SgHqJeaBzH8i', 'APPROVER', false, 0);
+
+
+
+INSERT INTO users (user_id, username, password, role, account_locked, failed_attempts)
+
+VALUES ('operator1', 'Operator One', '$2a$10$1zKHgx8xL0zHfWn0PvYkC.6FqykVz8uPPdxfxJ8V0SgHqJeaBzH8i', 'OPERATOR', false, 0);

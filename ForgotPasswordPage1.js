@@ -1,16 +1,36 @@
 import React, { useState, useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
+import "./LoginPage.css";
 
-
-const images = ["/bg1.jpg", "/bg2.jpg", "/bg3.jpg"];
+import "../App.css";
 
 
 
 function ForgotPasswordPage() {
 
-  const [currentImage, setCurrentImage] = useState(0);
+  const [backgroundIndex, setBackgroundIndex] = useState(0);
+
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
+  const [modalContent, setModalContent] = useState(null);
+
+
+
+  const backgrounds = [
+
+    "/images/bg_1.jpeg",
+
+    "/images/bg2.jpeg",
+
+    "/images/bg3.jpeg",
+
+    "/images/bg_4.jpeg"
+
+  ];
 
 
 
@@ -18,13 +38,79 @@ function ForgotPasswordPage() {
 
     const interval = setInterval(() => {
 
-      setCurrentImage((prev) => (prev + 1) % images.length);
+      setBackgroundIndex((prev) => (prev + 1) % backgrounds.length);
 
     }, 4000);
 
     return () => clearInterval(interval);
 
-  }, []);
+  }, [backgrounds.length]);
+
+
+
+  const handleReset = (e) => {
+
+    e.preventDefault();
+
+    alert("Password reset successful!");
+
+  };
+
+
+
+  const openModal = (type) => {
+
+    let title = "";
+
+    let desc = "";
+
+
+
+    switch (type) {
+
+      case "help":
+
+        title = "Help";
+
+        desc = "Get quick assistance for login issues, navigation help, and common FAQs.";
+
+        break;
+
+      case "contact":
+
+        title = "Contact Us";
+
+        desc = "You can reach Standard Chartered via email at support@sc.com or call 1800-123-456.";
+
+        break;
+
+      case "support":
+
+        title = "Support";
+
+        desc = "Our support team is available 24/7 to resolve your banking queries and provide assistance.";
+
+        break;
+
+      case "about":
+
+        title = "About Us";
+
+        desc = "Standard Chartered is a leading international bank, committed to driving commerce and prosperity through our unique diversity.";
+
+        break;
+
+      default:
+
+        break;
+
+    }
+
+
+
+    setModalContent({ title, desc });
+
+  };
 
 
 
@@ -32,97 +118,183 @@ function ForgotPasswordPage() {
 
     <div
 
-      className="h-screen w-full flex items-center justify-center bg-cover bg-center transition-all duration-1000"
+      className="login-container"
 
-      style={{ backgroundImage: `url(${images[currentImage]})` }}
+      style={{ backgroundImage: `url(${backgrounds[backgroundIndex]})` }}
 
     >
 
-      <div className="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-lg w-96">
+      {/* Header */}
 
-        <div className="flex flex-col items-center">
+      <header className="header">
 
-          <img src="/logo.png" alt="SCB Logo" className="w-16 mb-3" />
+        <div className="logo">Standard Chartered</div>
 
-          <h2 className="text-xl font-bold text-gray-800">Reset Password</h2>
+        <nav>
+
+          <a onClick={() => openModal("help")}>Help</a>
+
+          <a onClick={() => openModal("contact")}>Contact Us</a>
+
+          <a onClick={() => openModal("support")}>Support</a>
+
+          <a onClick={() => openModal("about")}>About Us</a>
+
+        </nav>
+
+      </header>
+
+
+
+      <div className="main-content" style={{ justifyContent: "center" }}>
+
+        {/* Motto Section */}
+
+        <div className="welcome-section">
+
+          <h1>Reset Your Password</h1>
+
+          <p>
+
+            Securely reset your password and regain access to your Standard Chartered account.
+
+          </p>
+
+
+
+          <div className="mottos">
+
+            <div className="motto-card">
+
+              <img src="/icons/secure.png" alt="Secure" /> Secure Transactions
+
+            </div>
+
+            <div className="motto-card">
+
+              <img src="/icons/global.png" alt="Global" /> Global Access
+
+            </div>
+
+            <div className="motto-card">
+
+              <img src="/icons/fast.png" alt="Fast" /> Fast & Reliable
+
+            </div>
+
+            <div className="motto-card">
+
+              <img src="/icons/trust.png" alt="Trust" /> Trusted Banking Partner
+
+            </div>
+
+          </div>
 
         </div>
 
 
 
-        <input
+        {/* Reset Form */}
 
-          type="text"
+        <div className="login-box">
 
-          placeholder="User ID"
+          <h2>Forgot Password</h2>
 
-          className="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          <form onSubmit={handleReset}>
 
-        />
-
-        <input
-
-          type="text"
-
-          placeholder="Username"
-
-          className="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-
-        />
-
-        <input
-
-          type="email"
-
-          placeholder="Email"
-
-          className="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-
-        />
-
-        <input
-
-          type="password"
-
-          placeholder="New Password"
-
-          className="w-full px-4 py-2 mb-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-
-        />
-
-        <input
-
-          type="password"
-
-          placeholder="Confirm Password"
-
-          className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-
-        />
+            <input type="text" placeholder="User ID" required />
 
 
 
-        <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg shadow-md">
+            <div className="password-container">
 
-          Reset Password
+              <input
 
-        </button>
+                type={passwordVisible ? "text" : "password"}
+
+                placeholder="New Password"
+
+                required
+
+              />
+
+              <span
+
+                className="toggle-password"
+
+                onClick={() => setPasswordVisible(!passwordVisible)}
+
+              >
+
+                {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+
+              </span>
+
+            </div>
 
 
 
-        <p className="mt-4 text-sm text-center text-gray-600">
+            <div className="password-container">
 
-          Back to{" "}
+              <input
 
-          <Link to="/login/user" className="text-green-600 font-medium hover:underline">
+                type={confirmPasswordVisible ? "text" : "password"}
 
-            Login
+                placeholder="Confirm Password"
 
-          </Link>
+                required
 
-        </p>
+              />
+
+              <span
+
+                className="toggle-password"
+
+                onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+
+              >
+
+                {confirmPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+
+              </span>
+
+            </div>
+
+
+
+            <button className="login-btn" type="submit">
+
+              Reset Password
+
+            </button>
+
+          </form>
+
+        </div>
 
       </div>
+
+
+
+      {/* Modal */}
+
+      {modalContent && (
+
+        <div className="modal-overlay">
+
+          <div className="modal">
+
+            <h2>{modalContent.title}</h2>
+
+            <p>{modalContent.desc}</p>
+
+            <button onClick={() => setModalContent(null)}>Close</button>
+
+          </div>
+
+        </div>
+
+      )}
 
     </div>
 

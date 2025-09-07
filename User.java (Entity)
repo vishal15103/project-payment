@@ -1,0 +1,53 @@
+package com.example.paymentinitiation.entity;
+
+
+
+import jakarta.persistence.*;
+
+import lombok.*;
+
+
+
+@Entity
+
+@Getter
+
+@Setter
+
+@NoArgsConstructor
+
+@AllArgsConstructor
+
+@Builder
+
+@Table(name = "users")
+
+public class User {
+
+
+
+    @Id
+
+    private String userId;   // unique login id
+
+
+
+    private String username;
+
+
+
+    private String password;
+
+
+
+    private String role;     // e.g., USER / APPROVER / OPERATOR
+
+
+
+    private boolean accountLocked = false;
+
+
+
+    private int failedAttempts = 0;
+
+}

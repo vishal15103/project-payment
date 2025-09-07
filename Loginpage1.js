@@ -1,22 +1,38 @@
 import React, { useState, useEffect } from "react";
 
-import { Link, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+import "./LoginPage.css";
+
+import "../App.css"; // import global styles
 
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 
 
-const images = ["/bg1.jpg", "/bg2.jpg", "/bg3.jpg"];
-
-
-
 function LoginPage() {
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const [currentImage, setCurrentImage] = useState(0);
+  const [backgroundIndex, setBackgroundIndex] = useState(0);
 
-  const { role } = useParams();
+  const [modalContent, setModalContent] = useState(null);
+
+  const navigate = useNavigate();
+
+
+
+  const backgrounds = [
+
+    "/images/bg_1.jpeg",
+
+    "/images/bg2.jpeg",
+
+    "/images/bg3.jpeg",
+
+    "/images/bg_4.jpeg"
+
+  ];
 
 
 
@@ -24,13 +40,79 @@ function LoginPage() {
 
     const interval = setInterval(() => {
 
-      setCurrentImage((prev) => (prev + 1) % images.length);
+      setBackgroundIndex((prev) => (prev + 1) % backgrounds.length);
 
     }, 4000);
 
     return () => clearInterval(interval);
 
-  }, []);
+  }, [backgrounds.length]);
+
+
+
+  const handleLogin = (e) => {
+
+    e.preventDefault();
+
+    navigate("/home");
+
+  };
+
+
+
+  const openModal = (type) => {
+
+    let title = "";
+
+    let desc = "";
+
+
+
+    switch (type) {
+
+      case "help":
+
+        title = "Help";
+
+        desc = "Get quick assistance for login issues, navigation help, and common FAQs.";
+
+        break;
+
+      case "contact":
+
+        title = "Contact Us";
+
+        desc = "You can reach Standard Chartered via email at support@sc.com or call 1800-123-456.";
+
+        break;
+
+      case "support":
+
+        title = "Support";
+
+        desc = "Our support team is available 24/7 to resolve your banking queries and provide assistance.";
+
+        break;
+
+      case "about":
+
+        title = "About Us";
+
+        desc = "Standard Chartered is a leading international bank, committed to driving commerce and prosperity through our unique diversity.";
+
+        break;
+
+      default:
+
+        break;
+
+    }
+
+
+
+    setModalContent({ title, desc });
+
+  };
 
 
 
@@ -38,105 +120,211 @@ function LoginPage() {
 
     <div
 
-      className="h-screen w-full flex items-center justify-center bg-cover bg-center transition-all duration-1000"
+      className="login-container"
 
-      style={{ backgroundImage: `url(${images[currentImage]})` }}
+      style={{ backgroundImage: `url(${backgrounds[backgroundIndex]})` }}
 
     >
 
-      <div className="bg-white/90 backdrop-blur-md p-8 rounded-2xl shadow-lg w-96">
+      {/* Header */}
 
-        <div className="flex flex-col items-center">
+      <header className="header">
 
-          <img src="/logo.png" alt="SCB Logo" className="w-16 mb-2" />
+        <div className="logo">Standard Chartered</div>
 
-          <h2 className="text-xl font-bold text-gray-800">Standard Chartered Bank</h2>
+        <nav>
 
-          <p className="text-sm text-gray-500 mb-6">{role.toUpperCase()} Login</p>
+          <a onClick={() => openModal("help")}>Help</a>
+
+          <a onClick={() => openModal("contact")}>Contact Us</a>
+
+          <a onClick={() => openModal("support")}>Support</a>
+
+          <a onClick={() => openModal("about")}>About Us</a>
+
+        </nav>
+
+      </header>
+
+
+
+      {/* Main Content */}
+
+      <div className="main-content">
+
+        {/* Left Section */}
+
+        <div className="welcome-section">
+
+          <h1>Welcome to Standard Chartered</h1>
+
+          <p>
+
+            We are committed to delivering exceptional banking services with
+
+            integrity, innovation, and inclusivity.
+
+          </p>
+
+
+
+          <div className="mottos">
+
+            <div className="motto-card">
+
+              <img src="/icons/secure.png" alt="Secure" /> Secure Transactions
+
+            </div>
+
+            <div className="motto-card">
+
+              <img src="/icons/global.png" alt="Global" /> Global Access
+
+            </div>
+
+            <div className="motto-card">
+
+              <img src="/icons/fast.png" alt="Fast" /> Fast & Reliable
+
+            </div>
+
+            <div className="motto-card">
+
+              <img src="/icons/trust.png" alt="Trust" /> Trusted Banking Partner
+
+            </div>
+
+          </div>
 
         </div>
 
 
 
-        <input
+        {/* Right Section (Login Box) */}
 
-          type="text"
+        <div className="login-box">
 
-          placeholder="User ID / Username / Email"
+          <h2>User Login</h2>
 
-          className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+          <form onSubmit={handleLogin}>
 
-        />
+            <div className="radio-options">
+
+              <label>
+
+                <input type="radio" name="loginType" defaultChecked /> Operator Login
+
+              </label>
+
+              <label>
+
+                <input type="radio" name="loginType" /> Approver Login
+
+              </label>
+
+              <label>
+
+                <input type="radio" name="loginType" /> User Login
+
+              </label>
+
+            </div>
 
 
 
-        <div className="relative mb-4">
+            <input type="text" placeholder="Username" required />
 
-          <input
 
-            type={showPassword ? "text" : "password"}
 
-            placeholder="Password"
+            <div className="password-container">
 
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+              <input
 
-          />
+                type={passwordVisible ? "text" : "password"}
 
-          <span
+                placeholder="Password"
 
-            onClick={() => setShowPassword(!showPassword)}
+                required
 
-            className="absolute right-3 top-3 text-gray-600 cursor-pointer"
+              />
 
-          >
+              <span
 
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                className="toggle-password"
 
-          </span>
+                onClick={() => setPasswordVisible(!passwordVisible)}
+
+              >
+
+                {passwordVisible ? <FaEyeSlash /> : <FaEye />}
+
+              </span>
+
+            </div>
+
+
+
+            <button className="login-btn" type="submit">
+
+              Login
+
+            </button>
+
+          </form>
+
+
+
+          {/* New Links */}
+
+          <div className="extra-links">
+
+            <p>
+
+              <a onClick={() => navigate("/signup")} className="link-btn">
+
+                Sign Up (User Only)
+
+              </a>
+
+            </p>
+
+            <p>
+
+              <a onClick={() => navigate("/forgot-password")} className="link-btn">
+
+                Forgot Password?
+
+              </a>
+
+            </p>
+
+          </div>
 
         </div>
-
-
-
-        <div className="flex justify-between items-center mb-4 text-sm text-gray-600">
-
-          <label>
-
-            <input type="checkbox" className="mr-2" /> Remember Me
-
-          </label>
-
-          <Link to="/forgot-password" className="text-green-600 hover:underline">
-
-            Forgot Password?
-
-          </Link>
-
-        </div>
-
-
-
-        <button className="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg shadow-md">
-
-          Login
-
-        </button>
-
-
-
-        <p className="mt-4 text-sm text-center text-gray-600">
-
-          Don’t have an account?{" "}
-
-          <Link to="/signup" className="text-green-600 font-medium hover:underline">
-
-            Sign up
-
-          </Link>
-
-        </p>
 
       </div>
+
+
+
+      {/* Modal */}
+
+      {modalContent && (
+
+        <div className="modal-overlay">
+
+          <div className="modal">
+
+            <h2>{modalContent.title}</h2>
+
+            <p>{modalContent.desc}</p>
+
+            <button onClick={() => setModalContent(null)}>Close</button>
+
+          </div>
+
+        </div>
+
+      )}
 
     </div>
 
